@@ -40,61 +40,45 @@ public class Fenetre extends JFrame {
 		JMenu menu = new JMenu("Nouveau");
 		menuBar.add(menu);
 		
-		JMenuItem nMatiere = new JMenuItem("Matière");
-		nMatiere.addActionListener(new ActionListener() {
+		JMenuItem nClient = new JMenuItem("Client");
+		nClient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String answer = JOptionPane.showInputDialog(parent, "Donnez le nom de la nouvelle matière : ", "Nom de la matière", JOptionPane.QUESTION_MESSAGE);
-				if (answer != null) {
-					if(!manager.existMatiere(answer)) {
-						JOptionPane.showMessageDialog(parent, "La nouvelle matière : "+answer+" a bien été crée !", "Matière crée", JOptionPane.INFORMATION_MESSAGE);
-						manager.nouvelleMatiere(answer);
-					}else
-						JOptionPane.showMessageDialog(parent, "Cette matière existe déjà", "Erreur", JOptionPane.ERROR_MESSAGE);
-				}
-			}
-		});
-		menu.add(nMatiere);
-		
-		
-		JMenuItem nEleve = new JMenuItem("Elève");
-		nEleve.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				NEleveFenetre fenetre = new NEleveFenetre(manager);
+				NClientFenetre fenetre = new NClientFenetre(manager);
 				fenetre.setVisible(true);
 			}
 		});
-		menu.add(nEleve);
+		menu.add(nClient);
+		
+		
+		JMenuItem nMedic = new JMenuItem("Médicament");
+		nMedic.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//NOUVEAU MEDICAMENT
+			}
+		});
+		menu.add(nMedic);
 		
 		setJMenuBar(menuBar);
 		
-		JMenu menuOption= new JMenu("Option");
-		menuBar.add(menuOption);
+		JMenu mOption = new JMenu("Option");
+		menuBar.add(mOption);
 		
-		JMenuItem menuAddMatiere = new JMenuItem("Ajouter une matière à un élève");
-		menuAddMatiere.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				AddMatiereFenetre fenetre = new AddMatiereFenetre(manager);
-				if(manager.getListeEtudiant().size() != 0 && manager.getListeMatiere().size() != 0)
-					fenetre.setVisible(true);
-				else
-					JOptionPane.showMessageDialog(parent, "Il faut au moins un élève et une matière", "Erreur", JOptionPane.ERROR_MESSAGE);
-			}
-		});
-		menuOption.add(menuAddMatiere);
+		JMenuItem mAjouterStock = new JMenuItem("Ajoutez du stocks");
+		mOption.add(mAjouterStock);
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel l1 = new JLabel("Rechercher un étudiant avec son ID :");
-		l1.setBounds(5, 52, 426, 92);
+		JLabel l1 = new JLabel("<html>Rechercher un client avec son numéro <br> de sécurité sociale:</html>");
+		l1.setBounds(5, 52, 426, 113);
 		l1.setHorizontalAlignment(SwingConstants.CENTER);
 		l1.setFont(new Font("Rockwell", Font.PLAIN, 23));
 		contentPane.add(l1);
 		
 		zoneTexte = new JTextField();
-		zoneTexte.setToolTipText("ID de l'élève");
+		zoneTexte.setToolTipText("Numéro de sécurité sociale");
 		zoneTexte.setBounds(54, 176, 342, 65);
 		contentPane.add(zoneTexte);
 		zoneTexte.setColumns(5);
@@ -102,18 +86,16 @@ public class Fenetre extends JFrame {
 		JButton btnValider = new JButton("Valider");
 		btnValider.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//GET WHATS IN TEXT FIELD
-				String idS = zoneTexte.getText();
+				String secu = zoneTexte.getText();
 				try {
-					int ID = Integer.parseInt(idS);
-					Client etudiant = null;
-					for(Client element : manager.getListeEtudiant()) {
-						if (element.getId() == ID)
-							etudiant = element;
+					Client client = null;
+					for(Client element : manager.getListeClients()) {
+						if(element.getSecu().equalsIgnoreCase(secu))
+							client = element;
 					}
-					if(etudiant != null) {
-						System.out.println("Eleve : "+etudiant.getFullName());
-						etudiant.showDetailWindow(parent);
+					if(client != null) {
+						System.out.println("Eleve : "+client.getFullName());
+						client.showDetailWindow(parent);
 					}else {
 						JOptionPane.showMessageDialog(parent, "L'ID n'a pas été trouvé", "Erreur", JOptionPane.ERROR_MESSAGE);
 					}

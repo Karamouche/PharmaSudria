@@ -24,28 +24,43 @@ public class PharmaManager {
 		fenetre.setVisible(true);
 	}
 	
-	public String newClient(String nSecu, String nom, String prenom, String adresse, String nTelephone) {
+	public String newClient(String nSecu, String nom, String prenom, String adresse, String nTelephone) throws InvalidSecuriteSocialeFormat{
 		boolean existId = false;
 		for(Client element : this.listeClients) {
 			if(element.getSecu() == nSecu)
 				existId = true;
 		}
 		if(!existId) {
-			//IF nSECU > 13 (throw InvalidSecuriteSocialeFormat)
+			if(nSecu.length() < 13)
+				throw new InvalidSecuriteSocialeFormat("Votre numéro de sécurité sociale doit faire au moins 13 caractères");
 			Client client = new Client(nSecu, nom, prenom, adresse, nTelephone);
 			this.listeClients.add(client);
 			return "Le client a bien été créé au nom de "+client.getFullName()+" avec le numéro de SS: "+client.getSecu();
-		}
+			//IF nSECU > 13 (throw InvalidSecuriteSocialeFormat)
+}
 		else
 			return null;
 	}
 	
-	public void newMedic(String name) {
-		if(name != null) {
-			Medic matiere = new Medic(name);
-			this.listeMatiere.add(matiere);
-			System.out.println("Nouvelle matière : "+name);
+	public String newMedic(String ref, String nom, String desc, int quantite, float prix) {
+		if(!existMedic(ref)) {
+			if(ref != null && nom != null && desc != null) {
+				Medic medic = new Medic(ref, nom, desc, quantite, prix);
+				this.listeMedic.add(medic);
+				return "Le médicament "+medic.getNom()+" au prix de "+medic.getPrix()+" a bien été ajouté.";
+			}
+			return null;
 		}
+		return null;
+	}
+	
+
+	public boolean existMedic(String ref) {
+		for(Medic medic : listeMedic) {
+			if(medic.REF == ref)
+				return true;
+		}
+		return false;
 	}
 
 }
