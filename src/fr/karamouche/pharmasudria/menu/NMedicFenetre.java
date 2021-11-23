@@ -1,13 +1,9 @@
 package fr.karamouche.pharmasudria.menu;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import fr.karamouche.pharmasudria.InvalidSecuriteSocialeFormat;
 import fr.karamouche.pharmasudria.PharmaManager;
 
 import javax.swing.JLabel;

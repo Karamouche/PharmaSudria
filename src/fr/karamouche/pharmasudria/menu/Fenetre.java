@@ -67,6 +67,15 @@ public class Fenetre extends JFrame {
 		JMenuItem mAjouterStock = new JMenuItem("Ajoutez du stocks");
 		mOption.add(mAjouterStock);
 		
+		JMenuItem miAchat = new JMenuItem("Achat");
+		mOption.add(miAchat);
+		miAchat.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				FAchat fenetre = new FAchat(manager);
+				fenetre.setVisible(true);
+			}
+		});
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
