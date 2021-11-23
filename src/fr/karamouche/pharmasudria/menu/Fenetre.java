@@ -53,7 +53,8 @@ public class Fenetre extends JFrame {
 		JMenuItem nMedic = new JMenuItem("Médicament");
 		nMedic.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//NOUVEAU MEDICAMENT
+				NMedicFenetre fenetre = new NMedicFenetre(manager);
+				fenetre.setVisible(true);
 			}
 		});
 		menu.add(nMedic);
