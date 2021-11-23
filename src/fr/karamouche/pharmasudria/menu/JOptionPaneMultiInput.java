@@ -23,8 +23,8 @@ public class JOptionPaneMultiInput {
     		 int quantite = Integer.parseInt(txtQuant.getText());
     		 if(quantite > 0 && medic.getQuantite()-quantite >= 0) {
     			 medic.setQuantite(medic.getQuantite()-quantite);
-    			 final String resultS = "Vous avez acheté "+quantite+" "+medic.getNom()+". Il en reste mnt "+medic.getQuantite();
-    			 JOptionPane.showMessageDialog(null, resultS, "Notes ajoutés", JOptionPane.INFORMATION_MESSAGE);
+    			 final String resultS = "Vous avez acheté "+quantite+" "+medic.getNom()+"Pour le prix de "+medic.getPrix()*quantite+". Il en reste mnt "+medic.getQuantite();
+    			 JOptionPane.showMessageDialog(null, resultS, "Achat réussi !", JOptionPane.INFORMATION_MESSAGE);
     		 }
     		 else if(quantite <= 0)
     			 JOptionPane.showMessageDialog(null, "Vous devez saisir une quantité positive", "Erreur", JOptionPane.ERROR_MESSAGE);
